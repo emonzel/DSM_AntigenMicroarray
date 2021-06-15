@@ -17,6 +17,6 @@ install.packages("SuperCurve", repos="http://R-Forge.R-project.org")
 library(shiny)
 
 # 3. Run the application from GitHub.
-runGitHub("Shiny-Pro6Correction", "JosephLongworth")
+runGitHub("AntigenMicroarray", "JosephLongworth")
 
 
