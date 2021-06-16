@@ -19,4 +19,8 @@ library(shiny)
 # 3. Run the application from GitHub.
 runGitHub("AntigenMicroarray", "JosephLongworth")
 
-
+# 4. Testing.
+A zip file above can be downloaded above with data required to process a single antigen array.
+  Antigen Names
+  Print Design
+  Several Scan Data files (multiple Gains)
