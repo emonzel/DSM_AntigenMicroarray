@@ -11,6 +11,7 @@ install.packages("shinydashboard")
 install.packages("tidyverse")
 install.packages("readxl")
 install.packages("janitor")
+install.packages("cobs",dependencies=TRUE, repos="https://cran.rstudio.com/")
 install.packages("SuperCurve", repos="http://R-Forge.R-project.org")
 
 # 2. Load Shiny.
