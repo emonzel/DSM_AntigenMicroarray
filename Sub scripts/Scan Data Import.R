@@ -125,6 +125,23 @@ progress$set(message = "Fit SuperCurves", value = (((which(Antigens==j)-1)*lengt
   }}
 
 # Fit Gains Curves -------------------------------
+
+if(!length(unique(Serology_data$gain))>1){
+
+  Normalised_intensities=Serology_data %>%
+    janitor::clean_names() %>%
+    mutate(block=as.double(sample)) %>%
+    mutate(antigen=as_factor(antigen)) %>%
+    arrange(antigen,block,gain) %>%
+    select(antigen,block,gain,intensity) %>% 
+    left_join(df) %>%
+    dplyr::select(antigen,block,antigen_number,
+                  display_order,product_code,lot_number,slide_name,
+                  sample_plate,immunoglobulin,intensity) %>%
+    distinct() %>%
+    mutate(gain_normalised_intensity=intensity)
+  
+  }else{
 progress$set(message = "Fit Gains", value = 0.9)
 
 Antigens=unique(Serology_data$Antigen)
@@ -169,7 +186,11 @@ Normalised_intensities=models %>%
          display_order,product_code,lot_number,slide_name,
          sample_plate,immunoglobulin) %>%
   distinct() %>%
-  mutate(gain_normalised_intensity=slope*50+intercept)
+  mutate(gain_normalised_intensity=slope*50+intercept) %>% 
+  mutate(gain_normalised_intensity=ifelse(is.na(gain_normalised_intensity),intercept,gain_normalised_intensity))
+
+}
+
 
 new_data<<-Normalised_intensities
 
