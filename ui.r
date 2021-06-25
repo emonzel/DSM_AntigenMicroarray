@@ -103,7 +103,7 @@ dashboardPage(
                 "Currently Loaded Data",
                 splitLayout(cellWidths = c("50%", "50%"),
                 uiOutput("Download_button3"),
-                actionButton("Clear_Dataset", "Clear  Loaded Dataset",class = "btn-danger", icon = icon("trash-alt"))),
+                actionButton("Clear_Dataset", "Clear Loaded Dataset",class = "btn-danger", icon = icon("trash-alt"))),
                 dataTableOutput("Current_Dataset")
                 )
             ))
