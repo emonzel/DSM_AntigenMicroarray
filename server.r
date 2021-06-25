@@ -204,7 +204,7 @@ observeEvent(input$Process_Import_Data_2, {
   ### Downloadable *.xlsx of Antigen Names Template
   
     output$Download_button3 <- renderUI({
-      downloadButton("downloadData3", "Combinded Slide Data",class = "btn btn-info",)
+      downloadButton("downloadData3", "Download Combined Slide Data",class = "btn btn-info",)
     })
     
     output$Antigen_Names_Template <- downloadHandler(
@@ -218,7 +218,7 @@ observeEvent(input$Process_Import_Data_2, {
   ### Downloadable *.txt of Print Plan of selected dataset
     output$downloadData3 <- downloadHandler(
       filename = function() {
-        paste0("Combinded_Slide_Data",".txt")
+        paste0("Combined_Slide_Data",".txt")
       },
       content = function(file) {
         write_tsv(base_dataset,file)
