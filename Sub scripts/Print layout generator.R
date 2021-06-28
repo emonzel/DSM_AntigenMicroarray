@@ -18,10 +18,8 @@ poitions_column=sort(rep(c(1:max_number_of_columns),(max_number_of_rows)))
 spots_list=paste0(poitions_column,",",poitions_row)
 
 if(Corners==T){
-  spots_list=spots_list[!grepl(paste0(1,",",1),spots_list)]
-  spots_list=spots_list[!grepl(paste0(1,",",max_number_of_columns),spots_list)]
-  spots_list=spots_list[!grepl(paste0(max_number_of_rows,",",1),spots_list)]
-  spots_list=spots_list[!grepl(paste0(max_number_of_rows,",",max_number_of_columns),spots_list)]
+   spots_list=spots_list[!spots_list %in% c(paste0(1,",",1),paste0(1,",",max_number_of_columns),
+                                           paste0(max_number_of_rows,",",1),paste0(max_number_of_rows,",",max_number_of_columns))]
 }
 
 if(scramble==T){
@@ -61,8 +59,10 @@ if(Corners==T){
     add_row(Well=c("a24","b24","c24","d24"),
             Sample_Number=Number_of_Samples+c(1:4),
             Dilution=c(1,1,1,1),
-            Spot_Number=(Number_of_Samples*number_of_dilutons)+c(1:4),
-            Print_Plan=paste0("P1 S",c(1:4),c(" 1,8"," 8,1"," 8,8"," 1,1"))
+            Spot_Number=(Number_of_Samples*number_of_dilutons)+c(1:4),Print_Plan=paste0("P1 S",c(1:4),c(
+            paste0(" 1,",max_number_of_columns),
+            paste0(" ",max_number_of_rows,",1"),
+            paste0(" ",max_number_of_rows,",",max_number_of_columns)," 1,1"))
     ) 
   }
 
