@@ -15,7 +15,7 @@ output=tibble(Well=NA,
 
 poitions_row=rep(c(1:max_number_of_rows),(max_number_of_columns))
 poitions_column=sort(rep(c(1:max_number_of_columns),(max_number_of_rows)))
-spots_list=paste0(poitions_column,",",poitions_row)
+spots_list=paste0(poitions_row,",",poitions_column)
 
 if(Corners==T){
    spots_list=spots_list[!spots_list %in% c(paste0(1,",",1),paste0(1,",",max_number_of_columns),
