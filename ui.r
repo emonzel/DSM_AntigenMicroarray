@@ -85,6 +85,8 @@ dashboardPage(
                                    choices = c("IgG","IgM","IgA","IgE","NA"),multiple = F),
                        selectInput("Intensity_Metric", "Intensity Metric:",
                                    choices = 'No choices here yet',multiple = F),
+                       numericInput("Gain_Normalisation_Point", "Gain Normalisation Point:",
+                                   value = 50,min = 0,max = 100),
                        actionButton("Process_Import_Data_1", "Process Import Data", class = "btn-success")
                 ),
               box(title="Previously Fitted Data Upload",collapsible = TRUE,solidHeader = TRUE,status = "warning", width = NULL,collapsed = TRUE,
