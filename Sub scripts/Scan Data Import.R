@@ -6,6 +6,7 @@ Slide_Name=input$Slide_Name
 Sample_Plate=input$Sample_Plate
 Immunoglobulin=input$Immunoglobulin
 Mean_Net=input$Intensity_Metric
+Gain_Normalisation_Point=input$Gain_Normalisation_Point
 
 
 # Import Print Design -------------------------------
@@ -147,6 +148,16 @@ progress$set(message = "Fit Gains", value = 0.9)
 Antigens=unique(Serology_data$Antigen)
 Gains=unique(Serology_data$gain)
 
+intensities=Serology_data%>%
+  janitor::clean_names() %>% 
+  mutate(block=as.double(sample)) %>% 
+  mutate(antigen=as_factor(antigen)) %>% 
+  select(antigen,block,gain,intensity) %>%
+  distinct() %>%
+  arrange(gain) %>%
+  spread(key = gain,value = intensity) %>%
+  unite(col = intensities,!c(antigen,block),sep = ";")  
+  
 Serology_data=Serology_data %>%
   janitor::clean_names() %>% 
   mutate(block=as.double(sample)) %>% 
@@ -178,16 +189,31 @@ models=Serology_data %>%
   janitor::clean_names() %>%
   dplyr::rename(slope=as_double_gain)
 
+ 
+trimmed_intensities=models%>%
+  mutate(block=as.double(block)) %>%
+  full_join(df) %>%
+  select(antigen,block,gain,intensity) %>%
+  distinct() %>%
+  arrange(gain) %>%
+  spread(key = gain,value = intensity) %>%
+  unite(col = trimmed_intensities,!c(antigen,block),sep = ";") %>%
+  mutate(gains=paste0(sort(unique(df$gain)),collapse = ";")) %>%
+  glimpse() 
+  
 Normalised_intensities=models %>%
   mutate(block=as.double(block)) %>%
-  glimpse() %>%
   left_join(df) %>%
-  dplyr::select(antigen,block,intercept,slope,antigen_number,
+  left_join(intensities) %>%
+  left_join(trimmed_intensities) %>%
+  dplyr::select(antigen,block,gains,intensities,trimmed_intensities,intercept,slope,antigen_number,
          display_order,product_code,lot_number,slide_name,
          sample_plate,immunoglobulin) %>%
   distinct() %>%
-  mutate(gain_normalised_intensity=slope*50+intercept) %>% 
+  mutate(gain_normalisation_point=Gain_Normalisation_Point) %>% 
+  mutate(gain_normalised_intensity=slope*Gain_Normalisation_Point+intercept) %>% 
   mutate(gain_normalised_intensity=ifelse(is.na(gain_normalised_intensity),intercept,gain_normalised_intensity))
+
 
 }
 
