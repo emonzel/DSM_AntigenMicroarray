@@ -20,14 +20,16 @@ dashboardPage(
                   tabPanel("Overview",
                                     # box(h2("Overview:"),width = 12,
                                     "This shiny app provides a toolset for production and an analysis of antigen microarrays as described
-                                    in", tags$strong("COVID19 serological analysis on an antigen microarray"), "by Longworth and Dittmar.",
+                                    in", tags$strong("An antigen microarray protocol for COVID-19 serological analysis"), "by Longworth and Dittmar.",
 
                                     h3("The sidebar to the left navigates between the two activites:"),
                                     tags$ul(tags$li(tags$strong("Print Plan Generator"), " - Used to design and create a print plan for the GeSim Nanoplotter 2.1."),
                                             tags$li(tags$strong("Antigen Array Data Processing")," - Used to import tabulated intensities in Mapix or Genepix format accross multiple gains
                                             fitting the data to a single response variable for each antigen sera comparison.")),
                                     h3("Citation:"),
-                                    "When citing this application please referece: Longworth and Dittmar 2021"),
+                                    "To cite the application in publications please use:",
+                                    tags$br(),
+                                    "Joseph Longworth and Gunnar Dittmar. An antigen microarray protocol for COVID-19 serological analysis.  STAR Protocols, Volume 2, Issue 3, 2021. (https://doi.org/10.1016/j.xpro.2021.100815.)"),
                   tabPanel("Print Plan Generator Instructions",
                            img(src="Instructions for Print Plan Generator.png",
                                height = "80%",width = "80%")),
