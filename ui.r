@@ -15,7 +15,7 @@ dashboardPage(
     tabItems(
 # UI - Info Page -----------------------------------------
    tabItem(tabName = "Info_Page",
-           h1("Antigen Microarray Toolset"),
+           h1("Antigen Microarray Toolset Test"),
            tabBox(width = 12,
                   tabPanel("Overview",
                                     # box(h2("Overview:"),width = 12,
